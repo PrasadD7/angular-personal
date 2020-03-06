@@ -10,6 +10,7 @@ import { DataService } from "../data.service";
 export class AppComponent {
   name: string = "Angular";
   barData: any = [];
+  doughnutData: any = [];
   barChartLabels: any = [];
   barChartData: any = [
     { data: [], label: "DepartmentA" },
@@ -22,25 +23,28 @@ export class AppComponent {
   doughnutChartData: any = [];
   doughnutChartType = 'doughnut';
 
-  constructor(private datasvc: DataService, private excelsvc: ExcelService) {
-    this.barData = this.datasvc.getBarData();
-    this.barData.forEach(record => {
-      this.barChartLabels.push(record.Year);
-      this.barChartData[0].data.push(record.DepartmentA);
-      this.barChartData[1].data.push(record.DepartmentB);
+  constructor(private datasvc: DataService, private excelsvc: ExcelService) {}
+
+  ngOnInit(){
+  this.barData = this.datasvc.getBarData();
+  this.barData.forEach(record => {
+    this.barChartLabels.push(record.Year);
+    this.barChartData[0].data.push(record.DepartmentA);
+    this.barChartData[1].data.push(record.DepartmentB);
     });
 
-  this.datasvc.getDoughnutChartData().forEach(element=>{
+  this.doughnutData = this.datasvc.getDoughnutChartData();
+  this.doughnutData.forEach(element=>{
     this.doughnutChartLabels.push('Quarter No:'+element.Quarter);
     this.doughnutChartData.push(element.Profit);
   });
-
   }
+
   exportData(): any {
     console.log(this.barData);
-    console.log(this.doughnutChartData);
+    console.log(this.doughnutData);
     this.excelsvc.exportAsExcelFile(this.barData, 'BarChartOrg');
-    this.excelsvc.exportAsExcelFile(this.doughnutChartData, 'DNutChartOrg');
+    this.excelsvc.exportAsExcelFile(this.doughnutData, 'DNutChartOrg');
   }
   public barChartOptions = {
     scaleShowVerticalLines: false,
