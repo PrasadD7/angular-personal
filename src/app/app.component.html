@@ -1,0 +1,30 @@
+<div class="container">
+  <div>
+  <label>Sales data</label>
+  </div>
+	<div style="display: block" class="visual">
+		<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+			[legend]="barChartLegend" [chartType]="barChartType">
+		</canvas>
+	</div>
+	<div style="display: block" class="visual">
+		<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels"
+			[chartType]="doughnutChartType"></canvas>
+	</div>
+	<!-- <div style="display: block" class="visual">
+  <canvas baseChart
+          [datasets]="radarChartData"
+          [labels]="radarChartLabels"
+          [chartType]="radarChartType"></canvas>
+</div>
+<div style="display: block" class="visual">
+  <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"></canvas>
+</div> -->
+</div>
+
+<div>
+<input type="button" value="Export as Excel" (click)="exportData()">
+</div>
